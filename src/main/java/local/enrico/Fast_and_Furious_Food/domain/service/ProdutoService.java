@@ -16,6 +16,11 @@ public class ProdutoService {
         return produtoRepository.findAll();
     }
 
+    public List<Produto> findByCategoria(String categoria) {
+        return produtoRepository.findByCategoria(categoria);
+    }
+  
+    
     // Para atualizar algo
     public Produto salvar(Produto produto) {
         return produtoRepository.save(produto);
@@ -26,7 +31,4 @@ public class ProdutoService {
         produtoRepository.deleteById(id);
     }
 
-    public List<Produto> findByCategoria(String categoria) {
-        return produtoRepository.findByCategoria(categoria);
-    }
 }
