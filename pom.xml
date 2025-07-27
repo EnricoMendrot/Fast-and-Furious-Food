@@ -28,7 +28,8 @@
 	</scm>
 	<properties>
 		<java.version>21</java.version>
-	</properties>
+                <start-class>local.enrico.Fast_and_Furious_Food.FastAndFuriousFoodApplication</start-class>
+        </properties>
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

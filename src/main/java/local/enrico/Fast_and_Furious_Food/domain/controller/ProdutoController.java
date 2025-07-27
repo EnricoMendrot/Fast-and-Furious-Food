@@ -31,8 +31,9 @@ public class ProdutoController {
     //==============POST===================//
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Produto salvar(@RequestBody Produto produto){
-        return produtoService.salvar(produto);
+    public ResponseEntity<?> criarProdutos(@RequestBody List<Produto> produtos) {
+        List<Produto> salvos = produtoRepository.saveAll(produtos);
+        return ResponseEntity.ok(salvos);
     }
     
     //=============GET====================//

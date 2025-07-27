@@ -1,35 +1,43 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package local.enrico.Fast_and_Furious_Food.domain.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import java.util.Objects;
 
 /**
  *
- * @author ppjata
+ * @author Enrico
  */
 @Entity
 @Table(name = "itempedido")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class ItemPedido {
     @Id
-    private int id;
-    
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     @ManyToOne
     @JoinColumn(name = "produto_id")
     private Produto produto;
-  
-    private int quantidade;
+
+    @ManyToOne
+    @JsonBackReference
+    @JoinColumn(name = "pedido_id")
+    private Pedido pedido;
+
+    int quantidade;
     private double preco;
     private double total;
-    
+
     @Enumerated(EnumType.STRING)
     private StatusPedido status;
     
@@ -40,7 +48,7 @@ public class ItemPedido {
     public ItemPedido() {
     }
 
-    public ItemPedido(int id, Produto produto, int quantidade, double preco, double total, StatusPedido status) {
+    public ItemPedido(Long id, Produto produto, int quantidade, double preco, double total, StatusPedido status) {
         this.id = id;
         this.produto = produto;
         this.quantidade = quantidade;
@@ -48,12 +56,22 @@ public class ItemPedido {
         this.total = total;
         this.status = status;
     }
+
+    public Pedido getPedido() {
+        return pedido;
+    }
+
+    public void setPedido(Pedido pedido) {
+        this.pedido = pedido;
+    }
+
     
-    public int getId() {
+    
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -100,7 +118,7 @@ public class ItemPedido {
     @Override
     public int hashCode() {
         int hash = 5;
-        hash = 71 * hash + this.id;
+        hash = 53 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -116,8 +134,9 @@ public class ItemPedido {
             return false;
         }
         final ItemPedido other = (ItemPedido) obj;
-        return this.id == other.id;
+        return Objects.equals(this.id, other.id);
     }
+
 }
     
 
