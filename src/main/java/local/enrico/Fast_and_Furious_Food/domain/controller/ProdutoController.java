@@ -18,6 +18,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ *
+ * @author Enrico
+ */
+
 @RestController
 @RequestMapping("/fastfurious/produto")
 public class ProdutoController {
@@ -28,7 +33,8 @@ public class ProdutoController {
     @Autowired
     private ProdutoRepository produtoRepository;
     
-    //==============POST===================//
+    //=============================POST=======================================//
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<?> criarProdutos(@RequestBody List<Produto> produtos) {
@@ -36,16 +42,16 @@ public class ProdutoController {
         return ResponseEntity.ok(salvos);
     }
     
-    //=============GET====================//
+    //==============================GET=======================================//
     
-    //==GERAL==//
+    //==========GERAL============//
     @GetMapping
     public List<Produto> listas() {
         return produtoService.findAll(); 
     
     }
     
-    //===id===//
+    //============ID=============//
     @GetMapping("/{id}")
     public ResponseEntity<Produto> buscar (@PathVariable Long id) {
         Optional<Produto> produto = produtoRepository.findById(id);
@@ -58,14 +64,14 @@ public class ProdutoController {
     
     }
     
-    //===Categoraia===//
+    //=========CATEGORIA=========//
     
     @GetMapping("/cat/{categoria}")
     public List<Produto> findByCategoria(@PathVariable String categoria) {
         return produtoService.findByCategoria(categoria);
     }
     
-    //==============PUT==============//
+    //==============================PUT=======================================//
     @PutMapping("/{id}")
     public ResponseEntity<Produto> atualizar (@PathVariable Long id, @RequestBody Produto produto){
         
@@ -83,7 +89,7 @@ public class ProdutoController {
     }
     
     
-    //==========DELETE==========//
+    //===========================DELETE=======================================//
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> excluir (@PathVariable Long id) {
     

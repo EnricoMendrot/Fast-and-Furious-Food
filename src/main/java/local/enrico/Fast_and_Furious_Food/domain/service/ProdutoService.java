@@ -6,27 +6,34 @@ import local.enrico.Fast_and_Furious_Food.domain.repository.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ *
+ * @author Enrico
+ */
+
 @Service
 public class ProdutoService {
 
     @Autowired
     private ProdutoRepository produtoRepository;
 
+    //================================GET=====================================//
     public List<Produto> findAll() {
         return produtoRepository.findAll();
     }
 
+    //==========================GET_CATEGORIA=================================//
     public List<Produto> findByCategoria(String categoria) {
         return produtoRepository.findByCategoria(categoria);
     }
   
     
-    // Para atualizar algo
+    // ==============================PUT======================================//
     public Produto salvar(Produto produto) {
         return produtoRepository.save(produto);
     }
 
-    //Para deletar algo
+    //=============================DELETE=====================================//
     public void excluir(Long id) {
         produtoRepository.deleteById(id);
     }

@@ -6,7 +6,7 @@ package local.enrico.Fast_and_Furious_Food.domain.model;
 
 /**
  *
- * @author ppjata
+ * @author Enrico
  */
 public enum StatusPedido {
     ABERTO, CANCELADO, PRONTO

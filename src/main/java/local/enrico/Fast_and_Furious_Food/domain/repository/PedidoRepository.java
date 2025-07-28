@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 
 /**
  *
- * @author ppjata
+ * @author Enrico
  */
 @Repository
 public interface PedidoRepository extends JpaRepository<Pedido, Long> {

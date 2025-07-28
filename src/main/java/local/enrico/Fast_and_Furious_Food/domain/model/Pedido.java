@@ -1,8 +1,6 @@
 package local.enrico.Fast_and_Furious_Food.domain.model;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -23,7 +21,7 @@ import java.util.Objects;
 public class Pedido {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long pedidoid;
+    private Long id;
     
     @JsonManagedReference
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
@@ -34,20 +32,20 @@ public class Pedido {
     private double total;
     
     @Enumerated(EnumType.STRING)
-    private StatusPedido status;
+    private StatusPedido status = StatusPedido.ABERTO;
 
     public Pedido() {
     }
 
-    public Pedido(Long pedidoid, List<ItemPedido> itens, int quantidade, double preco, StatusPedido status) {
-        this.pedidoid = pedidoid;
+    public Pedido(Long id, List<ItemPedido> itens, int quantidade, double total, StatusPedido status) {
+        this.id = id;
         this.itens = itens;
         this.quantidade = quantidade;
+        this.total = total;
         this.status = status;
     }
 
-
-
+    
    public void calcularTudo() {
     this.total = this.itens.stream()
                          // Muda o formato para Double e pega o total de cada item
@@ -61,15 +59,16 @@ public class Pedido {
                               .sum();
     }
 
-    public Long getPedidoid() {
-        return pedidoid;
+  
+    public Long getId() {
+        return id;
     }
 
-    public void setPedidoid(Long pedidoid) {
-        this.pedidoid = pedidoid;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    
+
     public List<ItemPedido> getItens() {
         return itens;
     }
@@ -105,8 +104,8 @@ public class Pedido {
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 53 * hash + Objects.hashCode(this.pedidoid);
+        int hash = 7;
+        hash = 31 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -122,8 +121,10 @@ public class Pedido {
             return false;
         }
         final Pedido other = (Pedido) obj;
-        return Objects.equals(this.pedidoid, other.pedidoid);
+        return Objects.equals(this.id, other.id);
     }
+
+
  
     
     

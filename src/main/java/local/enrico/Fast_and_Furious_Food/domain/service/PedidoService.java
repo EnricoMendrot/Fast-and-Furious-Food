@@ -5,7 +5,6 @@
 package local.enrico.Fast_and_Furious_Food.domain.service;
 
 import jakarta.transaction.Transactional;
-import java.time.LocalDateTime;
 import java.util.List;
 import local.enrico.Fast_and_Furious_Food.domain.model.ItemPedido;
 import local.enrico.Fast_and_Furious_Food.domain.model.Pedido;
@@ -29,9 +28,17 @@ public class PedidoService {
     @Autowired
     private ProdutoRepository produtoRepository;
     
-    //Controla transações de banco de dados, 
-    //garantindo que operações sejam executadas como uma única unidade atômica (tudo ou nada).
-    // Ou seja, deu erro? Volta tudo
+    //================================GET=====================================//
+    public List<Pedido> findAll() {
+        return pedidoRepository.findAll();
+    }
+    //==================================POST==================================//
+/**
+ * Controla transações de banco de dados, garantindo que operações sejam 
+ * executadas como uma única unidade atômica (tudo ou nada).
+ * Ou seja, deu erro? Volta tudo
+ */    
+    
     @Transactional
     public Pedido criar(Pedido pedido) {
         // 1. Configura o pedido
@@ -56,6 +63,17 @@ public class PedidoService {
         pedido.calcularTudo();
 
         return pedidoRepository.save(pedido);
+    }
+    
+    //=================================DELETE=================================//
+    
+    public void excluir(Long id){
+       pedidoRepository.deleteById(id);
+        
+    }
+    //==============================PUT=======================================//
+    public Pedido salvar(Pedido pedido) {
+    return pedidoRepository.save(pedido);
     }
 }
 
