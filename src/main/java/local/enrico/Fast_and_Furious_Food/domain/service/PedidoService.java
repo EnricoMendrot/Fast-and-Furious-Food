@@ -29,11 +29,17 @@ public class PedidoService {
     private ProdutoRepository produtoRepository;
     
     //================================GET=====================================//
+    
+    /**
+     * Lista todos os pedidos.
+     * @return Lista de Pedido.
+     */
     public List<Pedido> findAll() {
         return pedidoRepository.findAll();
     }
     //==================================POST==================================//
-/**
+
+    /**
  * Controla transações de banco de dados, garantindo que operações sejam 
  * executadas como uma única unidade atômica (tudo ou nada).
  * Ou seja, deu erro? Volta tudo
@@ -67,6 +73,10 @@ public class PedidoService {
     
     //=================================DELETE=================================//
     
+    /**
+     * Eclui um pedido com base em um id.
+     * @param id Identificação do Pedido.
+     */
     public void excluir(Long id){
        pedidoRepository.deleteById(id);
         
